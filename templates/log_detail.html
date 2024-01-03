@@ -4,16 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Detail</title>
+    <title>TKMT Log Viewer</title>
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+        }
+
         #log-content {
             white-space: pre-line;
+            padding: 10px;
+            background-color: #fff;
+            overflow-y: scroll;
+            height: 500px; /* Set a fixed height or adjust as needed */
+            border-bottom: 2px solid #333;
+        }
+
+        #log-content .last-line {
+            font-weight: bold;
+        }
+
+        #back-to-list {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Log Detail</h1>
-    <div id="log-content"></div>
+
+    <a href="/" id="back-to-list">Back to List</a>  
+
+    <h1>{{filename}}</h1>
+    
+    <div id="log-content"></div> 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -21,12 +59,18 @@
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
         socket.on('update_log', function(data) {
-            // 문자열에 있는 개행 문자를 <br> 태그로 변환
             var logContent = data.content.replace(/\n/g, '<br>');
             $('#log-content').html(logContent);
+
+            // Scroll to the bottom to show the latest content
+            $('#log-content').scrollTop($('#log-content')[0].scrollHeight);
+
+            // Add class to the last line for bold styling
+            $('#log-content').find('.last-line').removeClass('last-line');
+            $('#log-content br:last-child').prev().addClass('last-line');
         });
 
-        // 초기 파일 내용 요청
+        // Initial request for file content
         socket.emit('get_log', {'file': '{{ filename }}'});
     </script>
 </body>

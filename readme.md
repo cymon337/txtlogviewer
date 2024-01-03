@@ -1,9 +1,9 @@
 # txt 로그 뷰어
 
-## Description
+## 개요
 - txt 파일로 저장되는 로그를 실시간으로 웹페이지에서 보여준다.
 
-## Requirements
+## 기능
 - 개발언어: python
 - ubuntu22.04 서버의 /tmp/test 폴더에 txt 파일로 저장되는 로그를 웹페이지에서 보여준다.
 - 웹브라우저 에서 server-ip 에 10000번 포트로 접속하면 /tmp/test 폴더내의 텍스트 파일 리스트를 보여준다.
@@ -11,6 +11,13 @@
 - 파일 리스트는 변화를 감지하여 실시간으로 업데이트해준다.
 - 파일 내용은 변화를 감지하여 실시간으로 업데이트해준다.
 - 서버에 서비스로 등록하고 venv 가상환경에서 실행된다.
+
+##
+```bash
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+```
 
 ## 서비스파일
 ```bash

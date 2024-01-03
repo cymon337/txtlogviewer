@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Viewer</title>
+    <title>TKMT Log Viewer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+        }
+
+
+    </style>
 </head>
 <body>
-    <h1>Log Files</h1>
+    <h1>TKMT Log Viewer</h1>
     <ul id="file-list">
         {% for file in files %}
             <li><a href="{{ url_for('show_log', filename=file) }}">{{ file }}</a></li>
