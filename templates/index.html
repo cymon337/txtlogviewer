@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Viewer</title>
+</head>
+<body>
+    <h1>Log Files</h1>
+    <ul id="file-list">
+        {% for file in files %}
+            <li><a href="{{ url_for('show_log', filename=file) }}">{{ file }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('update_file_list', function(data) {
+            $('#file-list').empty();
+            data.files.forEach(function(file) {
+                $('#file-list').append('<li><a href="/logs/' + file + '">' + file + '</a></li>');
+            });
+        });
+
+        socket.on('update_log', function(data) {
+            $('#log-content').text(data.content);
+        });
+
+        // 초기 파일 목록 요청
+        socket.emit('get_file_list');
+    </script>
+</body>
+</html>
