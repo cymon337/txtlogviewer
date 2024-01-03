@@ -16,3 +16,28 @@
 ```bash
 sudo vi /etc/systemd/system/txtlogviewer.service
 ```
+
+```txtlogviewer.service
+[Unit]
+Description=Text Log Viewer
+After=network.target
+
+[Service]
+ExecStart=/home/tkmtlab/apps/txtlogviewer/venv/bin/python /home/tkmtlab/apps/txtlogviewer/app.py
+WorkingDirectory=/home/tkmtlab/apps/txtlogviewer
+User=tkmtlab
+Group=tkmtlab
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start txtlogviewer
+sudo systemctl enable txtlogviewer
+
+sudo journalctl -u txtlogviewer #  로그확인
+```
+
