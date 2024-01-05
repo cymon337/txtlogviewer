@@ -19,7 +19,7 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-## 서비스파일
+## 서비스파일 수정필요
 ```bash
 sudo vi /etc/systemd/system/txtlogviewer.service
 ```

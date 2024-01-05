@@ -10,7 +10,7 @@ import sys
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-LOG_FOLDER = 'C:/tmp/test'
+LOG_FOLDER = 'c:/tmp/test'
 
 @app.route('/')
 def index():
@@ -39,6 +39,11 @@ class LogFileEventHandler(FileSystemEventHandler):
             return
 
         file_path = event.src_path
+
+        # '.swp' 파일은 처리하지 않음
+        if file_path.endswith('.swp'):
+            return
+
         for _ in range(5):  # 최대 5번 시도, 짧은 지연 포함
             try:
                 socketio.emit('update_log', {'content': get_log_content(file_path)})
@@ -79,4 +84,3 @@ if __name__ == '__main__':
         socketio.run(app, host='0.0.0.0', port=10000)
     except Exception as e:
         print(f"Unknown Error: {e}")
-        restart_application()
