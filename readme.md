@@ -30,10 +30,10 @@ Description=Text Log Viewer
 After=network.target
 
 [Service]
-ExecStart=/home/tkmtlab/apps/txtlogviewer/venv/bin/python /home/tkmtlab/apps/txtlogviewer/app.py
-WorkingDirectory=/home/tkmtlab/apps/txtlogviewer
-User=tkmtlab
-Group=tkmtlab
+ExecStart=/home/user/apps/txtlogviewer/venv/bin/python /home/user/apps/txtlogviewer/app.py
+WorkingDirectory=/home/user/apps/txtlogviewer
+User=user
+Group=usergroup
 Restart=always
 
 [Install]
